@@ -18,9 +18,20 @@ public class Splashscreenactivity extends AppCompatActivity {
         EasySplashScreen config = new EasySplashScreen(Splashscreenactivity.this)
                 .withFullScreen()
                 .withTargetActivity(MainActivity.class)
-                .withSplashTimeOut(5000);
+                .withSplashTimeOut(5000)
+                .withBackgroundColor(Color.parseColor("#1a1b29"))
+                .withHeaderText("Header")
+                .withFooterText("Footer")
+                .withBeforeLogoText("Before Logo Text")
+                .withAfterLogoText("After Logo Text")
+                .withLogo(R.mipmap.ic_launcher_round);
 
-     
-        setContentView(R.layout.splashscreenactivity);
+        config.getHeaderTextView().setTextColor(Color.WHITE);
+        config.getFooterTextView().setTextColor(Color.WHITE);
+        config.getBeforeLogoTextView().setTextColor(Color.WHITE);
+        config.getAfterLogoTextView().setTextColor(Color.WHITE);
+
+        View easySplashScreen = config.create();
+        setContentView(easySplashScreen);
     }
 }

@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity {
 private DrawerLayout drawer;
@@ -23,9 +24,12 @@ private DrawerLayout drawer;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
+        NavigationView navview=findViewById(R.id.nav_view);
+        navview.setNavigationItemSelectedListener(newlistener);
         Toolbar toolbar = (Toolbar) findViewById(R.id.appbar);
         setSupportActionBar(toolbar);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
+
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                 new homefragment()).commit();
         drawer = findViewById(R.id.drawer_layout);
@@ -62,6 +66,31 @@ private DrawerLayout drawer;
                 return super.onOptionsItemSelected(item);
         }
     }
+    private NavigationView.OnNavigationItemSelectedListener newlistener=
+            new NavigationView.OnNavigationItemSelectedListener() {
+
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                    switch (item.getItemId()) {
+                        case R.id.nav_message:
+                            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                                    new MessageFragment()).commit();
+                            break;
+                        case R.id.nav_chat:
+                            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                                    new Chatfragment()).commit();
+                            break;
+                        case R.id.nav_profile:
+                            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                                    new ProfileFragment()).commit();
+                            break;
+
+                    }
+
+                    return true;
+
+                }
+            };
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
